@@ -1,0 +1,21 @@
+#835pm 9/28/2025
+
+
+import bpy
+
+def child_parent_chain(choose):
+  
+    child_ = bpy.data.objects.get(choose["name"])
+    parent_ = bpy.data.objects.get(choose["parent"])
+
+    #check if both objects exist
+    if child_ and parent_:
+        child_.parent = parent_
+        child_.matrix_parent_inverse = parent_.matrix_world.inverted()
+    
+parenter_chain = [{"name": "Cube.003", "parent": "Cube.002"},{"name": "Cube.002", "parent": "Cube.001"},{"name": "Cube.001", "parent": ""}]
+
+
+for obj in parenter_chain:
+    
+    child_parent_chain(obj)
