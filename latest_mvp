@@ -1,6 +1,7 @@
 import bpy
 
-def child_parent_chain(choose):
+
+def assign_children_to_parent(choose):
   
     parent_ = bpy.data.objects.get(choose["parent"])
   
@@ -8,14 +9,28 @@ def child_parent_chain(choose):
     #if child list isnt empty and parent object exists
     if choose["child"] and parent_:
         
+        #scroll through all children by name
         for i in range(len(choose["child"])):
             child_ = bpy.data.objects.get(choose["child"][i]) 
             child_.parent = parent_
             child_.matrix_parent_inverse = parent_.matrix_world.inverted()
 
-#input
-parenter_chain = [{"parent": "Cube.004", "child": ["Cube.005", "Cube.007"]}]
 
+def deparent_children(name):
+    child_ = bpy.data.objects.get(name) 
+    
+    if child_:
+        child_.parent = None
+    
 
-for obj in parenter_chain:
-    child_parent_chain(obj)
+#Toggle between true and false
+if False:
+    parenter_chain = [{"parent": "Cube.004", "child": []}]
+    
+    for obj in parenter_chain:
+        assign_children_to_parent(obj)     
+else:
+    deparenter_ = ["Cube.005","Cube.004"]
+    
+    for x in deparenter_:
+        deparent_children(x)
