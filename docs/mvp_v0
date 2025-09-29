@@ -1,0 +1,35 @@
+#754pm 9/28/2025
+#bad code.
+
+
+def child_parent_chain(kid, adult):
+    
+    child_ = bpy.data.objects.get(kid)
+    parent_ = bpy.data.objects.get(adult)
+
+    #check if both objects exist
+    if child_ and parent_:
+        child_.parent = parent_
+
+
+
+deparenter_ = ["Cube.003","Cube.002"]
+
+parenter_ = [{"name": ""}]
+
+parenter_chain = ["Cube.003","Cube.002","Cube.001"]
+
+
+r = 0
+s = len(parenter_chain)
+
+#if list has at least 2 objects
+if len(parenter_chain) >= 2:
+    
+    while r <= s:
+    
+        child_parent_chain(parenter_chain[r], parenter_chain[r+1])
+            
+        r += 1
+        
+        #752pm 9/28/2025 The code almost works. One cube moved out of place. And the index error was thrown. index out of range.
