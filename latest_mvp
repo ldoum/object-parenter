@@ -11,9 +11,13 @@ def assign_children_to_parent(choose):
         
         #scroll through all children by name
         for i in range(len(choose["child"])):
+    
             child_ = bpy.data.objects.get(choose["child"][i]) 
-            child_.parent = parent_
-            child_.matrix_parent_inverse = parent_.matrix_world.inverted()
+            
+            #if child exists:
+            if child_:
+                child_.parent = parent_
+                child_.matrix_parent_inverse = parent_.matrix_world.inverted()
 
 
 def deparent_children(name):
