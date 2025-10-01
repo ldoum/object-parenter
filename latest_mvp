@@ -20,21 +20,20 @@ def assign_children_to_parent(choose):
                 child_.matrix_parent_inverse = parent_.matrix_world.inverted()
 
 
-def deparent_children(name):
-    child_ = bpy.data.objects.get(name) 
-    
-    if child_:
-        child_.parent = None
+def deparent_children(bad_name):
+    child_ = bpy.data.objects[bad_name]
+    child_.parent = None
     
 
 #Toggle between true and false
-if False:
-    parenter_chain = [{"parent": "Cube.004", "child": []}]
+code = 0
+
+if bool(code):
+    parenter_chain = [{"parent": "Cube", "child": ["Cube.001"]},{"parent": "Cube", "child": ["Cube.005"]}]
     
     for obj in parenter_chain:
         assign_children_to_parent(obj)     
 else:
-    deparenter_ = ["Cube.005","Cube.004"]
-    
-    for x in deparenter_:
-        deparent_children(x)
+ 
+    for x in bpy.context.selected_objects:
+        deparent_children(x.name)
