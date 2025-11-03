@@ -8,9 +8,9 @@ def assign_children_to_parent(choose):
     if choose["child_names"] and parent_:
         
         #scroll through all children by name
-        for i in range(len(choose["child_names"])):
+        for i, which_one in enumerate(choose["child_names"]):
     
-            child_ = bpy.data.objects.get(choose["child_names"][i])               #get each child
+            child_ = bpy.data.objects.get(which_one)                             #get each child
             
             #if a child exists:
             if child_:
