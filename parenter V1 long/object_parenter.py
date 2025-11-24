@@ -286,6 +286,7 @@ def send_the_exiled_object_enum(self, context):
 class ChildObjectSubEntry(bpy.types.PropertyGroup):
     child_name: bpy.props.StringProperty(name="Child Name")
     child_type: bpy.props.StringProperty(name="Child Type")
+    child_priority: bpy.props.BoolProperty(name="Priority", default=False)
     
     
 class ParentObjectEntry(bpy.types.PropertyGroup):
@@ -398,6 +399,7 @@ class UL_Child_History(bpy.types.UIList):
             row = layout.row()
             row.label(text=f"{item.child_name}")
             row.label(text=f"({item.child_type})")
+            row.prop(item, "child_priority")
         elif self.layout_type == 'GRID':
             layout.alignment = 'CENTER'
             layout.label(text=f"{item.child_name}")
@@ -563,23 +565,23 @@ class OT_Mass_Remove_Parent_Entry(bpy.types.Operator):
     def execute(self, context):
         pine_tree = context.scene.pine_tree
         
-        for each_obj in context.selected_objects:
+        #loop backwards to avoid index shifting issues
+        for idx in reversed(range(len(pine_tree.parents_list))):
             
-            #if entry for the object is there
-            if parent_entry_exists(pine_tree.parents_list, each_obj.name):
-                
-                #scroll through the collection property list
-                for idx in reversed(range(len(pine_tree.parents_list))):
-                    
-                    #get entry by indice
-                    solo_obj = pine_tree.parents_list[idx]
-                    
-                    #if match
-                    if each_obj.name == solo_obj.parent_name:
-                        
-                        pine_tree.parents_list.remove(idx)
-                        
-                        pine_tree.parent_idx = min(idx, len(pine_tree.parents_list)-1) 
+            #get entry by indice
+            base_obj = pine_tree.parents_list[idx]
+            
+            #check if object priority checkbox is clicked
+            if base_obj.parent_priority == True:
+            
+                #remove this entry as its no longer needed
+                pine_tree.parents_list.remove(idx)
+    
+                #make index point to next entry 
+                pine_tree.parent_idx = min(idx, len(pine_tree.parents_list)-1)
+        
+        ###########################
+        
                 
         return {"FINISHED"}     
     
@@ -801,24 +803,23 @@ class OT_Mass_Remove_Child_Entry(bpy.types.Operator):
         #get parent entry
         parent = pine_tree.parents_list[pine_tree.parent_idx]
         
-        for each_obj in context.selected_objects:
+        #loop backwards to avoid index shifting issues
+        for idx in reversed(range(len(parent.children_list))):
             
-            #if entry for the object is there
-            if child_entry_exists_in_active_parent(pine_tree.parents_list, each_obj.name):
-                
-                #scroll through the collection property list
-                for idx in reversed(range(len(parent.children_list))):
-                    
-                    #get entry by indice
-                    solo_obj = parent.children_list[idx]
-                    
-                    #if match
-                    if each_obj.name == solo_obj.child_name:
-                        
-                        parent.children_list.remove(idx)
-                        
-                        parent.child_idx = min(idx, len(parent.children_list)-1) 
-      
+            #get entry by indice
+            sub_obj = parent.children_list[idx]
+            
+            #check if object priority checkbox is clicked
+            if sub_obj.child_priority == True:
+            
+                #remove this entry as its no longer needed
+                parent.children_list.remove(idx)
+    
+                #make index point to next entry 
+                parent.child_idx = min(idx, len(parent.children_list)-1)
+        
+        ############################
+        
         return {"FINISHED"}    
     
     
@@ -1017,23 +1018,23 @@ class OT_Mass_Remove_Exile_Entry(bpy.types.Operator):
     def execute(self, context):
         snip_snip = context.scene.snip_snip
         
-        for each_obj in context.selected_objects:
+        #loop backwards to avoid index shifting issues
+        for idx in reversed(range(len(snip_snip.objects_list))):
             
-            #if entry for the object is there
-            if exile_entry_exists(snip_snip.objects_list, each_obj.name):
-                
-                #scroll through the collection property list
-                for idx in reversed(range(len(snip_snip.objects_list))):
-                    
-                    #get entry by indice
-                    solo_obj = snip_snip.objects_list[idx]
-                    
-                    #if match
-                    if each_obj.name == solo_obj.object_name:
-                        
-                        snip_snip.objects_list.remove(idx)
-                        
-                        snip_snip.object_idx = min(idx, len(snip_snip.objects_list)-1) 
+            #get entry by indice
+            solo_obj = snip_snip.objects_list[idx]
+            
+            #check if object priority checkbox is clicked
+            if solo_obj.object_priority == True:
+            
+                #remove this entry as its no longer needed
+                snip_snip.objects_list.remove(idx)
+    
+                #make index point to next entry 
+                snip_snip.object_idx = min(idx, len(snip_snip.objects_list)-1)
+        
+        ###################################
+        
                 
         return {"FINISHED"} 
       
@@ -1622,5 +1623,4 @@ def unregister():
    
     
 if __name__ == "__main__":
-
     register()
