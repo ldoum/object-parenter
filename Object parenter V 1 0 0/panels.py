@@ -9,11 +9,11 @@ from .child_list_operators import *
 from .lists import *
 
 class PT_BasePanel(bpy.types.Panel):
-    bl_idname = "panelname"
+    bl_idname = "panel.parent_deparent_define"
     bl_label = "List panel"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Parenter"
+    bl_category = "Tool"
     
     #show up in object mode only
     @classmethod
@@ -205,4 +205,5 @@ def unregister():
     bpy.utils.unregister_class(PT_BasePanel)
 
 if __name__ == "__main__":
+
     register()
