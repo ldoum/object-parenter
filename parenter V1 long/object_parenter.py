@@ -1,3 +1,17 @@
+bl_info = {
+    "name": "Object Parenter", 
+    "blender": (2, 8, 0),
+    "category": "Object",
+    "author": "Lancine Doumbia", 
+    "version": (1, 0, 0), 
+    "location": "View3D > Sidebar", #important
+    "description": "Automate the process of parenting and/or deparenting objects", 
+    "warning": "",
+    "doc_url": "",
+    "tracker_url": "",
+    "support": "COMMUNITY",
+}
+
 import bpy
 ##############core###############################
 
@@ -1624,3 +1638,4 @@ def unregister():
     
 if __name__ == "__main__":
     register()
+
