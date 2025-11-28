@@ -3,7 +3,7 @@ bl_info = {
     "blender": (2, 8, 0),
     "category": "Object",
     "author": "Lancine Doumbia", 
-    "version": (1, 0, 2), 
+    "version": (1, 1, 0), 
     "location": "View3D > Sidebar", #important
     "description": "Automate the process of parenting and/or deparenting objects", 
     "warning": "",
@@ -39,4 +39,5 @@ def unregister():
 if __name__ == "__main__":
 
     register()
+
 
