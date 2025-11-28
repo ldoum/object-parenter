@@ -80,6 +80,11 @@ class PT_BasePanel(bpy.types.Panel):
                 
                 #check if object exists to avoid key errors for bpy_prop_collection
                 if main_obj:
+
+                    #if it has a parent, display the box
+                    if main_obj.parent:
+                        layout.label(text=f"Parent of {parent_active.parent_name}: {main_obj.parent.name} ")
+                 
                     #if it has children, display the box
                     if main_obj.children:
                         layout.label(text=f"Children of {parent_active.parent_name}:")
@@ -207,3 +212,4 @@ def unregister():
 if __name__ == "__main__":
 
     register()
+
