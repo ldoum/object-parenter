@@ -11,7 +11,7 @@ def assign_children_to_parent(parent_name, bunch_of_child_names):
         #scroll through all children by name
         for each_obj in bunch_of_child_names:  
                                                          
-            child_ = bpy.data.objects.get(each_obj) #get each child
+            child_ = bpy.context.scene.objects.get(each_obj) #get each child
              
             #if child exists:
             if child_: 
@@ -35,4 +35,5 @@ def deparent_each_object(this_obj):
     
         #keep transform                                  
         child_.matrix_world = child_.matrix_world.copy()      
+
     
