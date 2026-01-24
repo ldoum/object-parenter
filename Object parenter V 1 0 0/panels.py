@@ -13,7 +13,7 @@ class PT_BasePanel(bpy.types.Panel):
     bl_label = "List panel"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Tool"
+    bl_category = "Parenter"
     
     #show up in object mode only
     @classmethod
@@ -212,4 +212,5 @@ def unregister():
 if __name__ == "__main__":
 
     register()
+
 
