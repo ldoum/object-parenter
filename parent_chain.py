@@ -271,7 +271,7 @@ class OT_Rename_Parent_EntryXX(bpy.types.Operator):
         #access existing object in the active scene
         obj = context.scene.objects[parent_name]
         #rename
-        obj.name = pine_tree.parent_rename 
+        obj.name = pine_.parent_rename 
         #edit active entry name
         pine_.parents_list[pine_.parent_idx].parent_name = pine_.parent_rename
         
